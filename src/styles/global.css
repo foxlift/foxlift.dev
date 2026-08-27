@@ -620,3 +620,55 @@ p {
     backdrop-filter: none;
   }
 }
+
+/* Where-we-stand status ladder: the hero-facts look, sized for a story section. */
+.stand-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 2.6rem 0 2.8rem;
+  border-block: 1px solid var(--line);
+}
+
+.stand-facts div {
+  padding: 1.6rem 1.5rem 1.7rem;
+  border-right: 1px solid var(--line);
+}
+
+.stand-facts div:first-child {
+  padding-left: 0;
+}
+
+.stand-facts div:last-child {
+  border-right: 0;
+}
+
+.stand-facts dt {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.stand-facts dd {
+  margin-top: 0.55rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 680px) {
+  .stand-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .stand-facts div {
+    padding: 1.15rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stand-facts div:last-child {
+    border-bottom: 0;
+  }
+}

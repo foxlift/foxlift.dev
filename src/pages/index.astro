@@ -142,6 +142,42 @@
         </div>
       </section>
 
+      <section class="section story" id="status">
+        <div class="shell story-grid">
+          <div class="story-copy" data-reveal>
+            <h2>Where we stand.</h2>
+            <p class="lead">
+              Method code comes back today; whole rebuildable projects are the roadmap. In between, partial results are the contract, not a failure mode.
+            </p>
+
+            <dl class="stand-facts" aria-label="Project status">
+              <div>
+                <dt>Today</dt>
+                <dd>Forms and class libraries (.scx/.vcx), compiled programs (.fxp), and module scans of .app/.exe decompile to per-module VFP source with symbols and per-section verdicts.</dd>
+              </div>
+              <div>
+                <dt>In flight</dt>
+                <dd>The rest of the compiled-program slice: DEFINE CLASS in .prg files, generated menu code, and code-page-faithful string literals.</dd>
+              </div>
+              <div>
+                <dt>Next</dt>
+                <dd>Artifact reconstruction — writing back .scx, .vcx, .mnx and project glue so a recovered application rebuilds in VFP.</dd>
+              </div>
+            </dl>
+
+            <p>
+              Hand FoxLift any binary and it tells the truth about it. A file that is not VFP is refused cleanly. A VFP binary always yields whatever is provable: every module found is decompiled, and any statement beyond the measured slice stays in the output as an annotated placeholder naming the exact blocker — never silently dropped. Exit 0 with a verified verdict means a 100% lift; exit 2 marks a partial.
+            </p>
+            <p>
+              Concretely: a real production .exe from the development corpus currently comes back as 13 modules and roughly 10,900 lines of source — 159 of 160 sections lifted, and the one miss is labeled in place with the unmeasured SET variant that blocks it.
+            </p>
+            <p>
+              Scope is Visual FoxPro 9 (SP2). Every claim above is measured against a real VFP9 compiler; nothing is guessed.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section class="section story" id="how">
         <div class="shell story-grid">
           <div class="story-copy" data-reveal>
