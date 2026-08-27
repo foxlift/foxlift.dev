@@ -743,3 +743,27 @@ p {
     border-bottom: 0;
   }
 }
+
+/* Quickstart code panels: terminal-shaped, hairline-framed, horizontally scrollable. */
+.code-panel {
+  margin: 1.7rem 0;
+  padding: 1.15rem 1.35rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  overflow-x: auto;
+}
+
+.code-panel code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.83rem;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre;
+}
+
+.story-copy p > code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.88em;
+  color: var(--text);
+}

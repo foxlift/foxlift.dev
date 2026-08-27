@@ -75,24 +75,48 @@
         </div>
       </section>
 
-      <section class="section story" id="story">
+      <section class="section story" id="quickstart">
         <div class="shell story-grid">
           <div class="story-copy" data-reveal>
-            <h2>Built because I needed it.</h2>
+            <h2>Two commands.</h2>
             <p class="lead">
-              FoxLift started as a personal need and a weekend project. The available tools did not fit a modern CLI and CI workflow, so I started building one.
+              Install from PyPI, point it at a compiled binary — .exe, .app, .fxp, .scx, .vcx — and read the verdict. No FoxPro installation needed to decompile.
             </p>
+
+            <pre class="code-panel"><code>pip install foxlift
+
+foxlift inspect erp_client.exe            # what is inside
+foxlift decompile erp_client.exe -o recovered/
+&#123;
+  "outdir": "recovered/",
+  "modules": 13,
+  "verified": false                       # exit 2 — a partial, honestly marked
+&#125;</code></pre>
+
+            <p>What lands on disk:</p>
+
+            <pre class="code-panel"><code>recovered/
+├── module_000e00/
+│   ├── source.prg      # canonical VFP source
+│   ├── symbols.txt     # recovered symbol table
+│   └── meta.json       # per-section verdicts, with reasons
+└── module_005e00/ …</code></pre>
+
+            <p>And inside a <code>source.prg</code>:</p>
+
+            <pre class="code-panel"><code>* --- section 1 ---
+LPARAMETERS TCORDERNO
+SELECT ORDERS
+LOCATE FOR ORDER_NO = TCORDERNO
+THIS.PARENT.TXTCUSTOMER.VALUE = ORDERS.CUST_NAME
+THIS.PARENT.CDSAVE.ENABLED = .T.
+MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
+* --- section 2 (1 statement(s) beyond the supported slice: SET variant outside forced subset) ---</code></pre>
+
             <p>
-              Roughly four billion model tokens have gone into format research, oracle probes, corpus sweeps, failed hypotheses, code, and review.
-            </p>
-            <p>
-              The standard is simple: recovered projects must rebuild and behave like the compiled input. Readable guesses are not enough.
-            </p>
-            <p>
-              FoxLift is created and maintained by <a href="https://github.com/timo-bejan">timo-bejan</a>.
+              Abridged, but true to shape: every liftable statement comes back as canonical VFP, and anything beyond the measured slice stays in the output as an annotated placeholder naming its exact blocker. Nothing is silently dropped.
             </p>
           </div>
-
         </div>
       </section>
 
@@ -100,7 +124,7 @@
         <div class="shell process-grid">
           <div class="process-heading" data-reveal>
             <h2>What it does.</h2>
-            <p>FoxLift follows a measured path from binary containers back to buildable VFP projects.</p>
+            <p>FoxLift follows a measured path from binary containers back to buildable VFP projects. The standard is simple: recovered projects must rebuild and behave like the compiled input — readable guesses are not enough.</p>
           </div>
 
           <ol class="process-list" data-reveal>
@@ -213,6 +237,9 @@
             </p>
             <p>
               No finding survived on model consensus. Every hypothesis was settled the same way: compile an authored probe on a real VFP9 and compare the bytecode.
+            </p>
+            <p>
+              FoxLift started as a personal need and a weekend project — the available tools did not fit a modern CLI and CI workflow. It is created and maintained by <a href="https://github.com/timo-bejan">timo-bejan</a>.
             </p>
           </div>
         </div>
