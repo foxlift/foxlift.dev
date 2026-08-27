@@ -672,3 +672,74 @@ p {
     border-bottom: 0;
   }
 }
+
+/* How-we-built-it campaign highlights: the hero-facts number treatment, four across. */
+.how-facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 2.6rem 0 2.8rem;
+  border-block: 1px solid var(--line);
+}
+
+.how-facts div {
+  padding: 1.6rem 1.5rem 1.7rem;
+  border-right: 1px solid var(--line);
+}
+
+.how-facts div:first-child {
+  padding-left: 0;
+}
+
+.how-facts div:last-child {
+  border-right: 0;
+}
+
+.how-facts dt {
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.how-facts dd {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .how-facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .how-facts div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .how-facts div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .how-facts div:nth-child(3) {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 680px) {
+  .how-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .how-facts div {
+    padding: 1.15rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .how-facts div:last-child {
+    border-bottom: 0;
+  }
+}

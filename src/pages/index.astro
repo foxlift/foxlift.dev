@@ -89,7 +89,7 @@
               The standard is simple: recovered projects must rebuild and behave like the compiled input. Readable guesses are not enough.
             </p>
             <p>
-              FoxLift is created and maintained by <a href="https://github.com/qdis">qdis</a>.
+              FoxLift is created and maintained by <a href="https://github.com/timo-bejan">timo-bejan</a>.
             </p>
           </div>
 
@@ -185,11 +185,31 @@
             <p class="lead">
               A loop of overseers and a fleet of experimenters, with a real compiler as the referee.
             </p>
+
+            <dl class="how-facts" aria-label="Campaign highlights">
+              <div>
+                <dt>3.7&#8202;B</dt>
+                <dd>tokens through the worker fleet, at a 97.6% cache-hit rate</dd>
+              </div>
+              <div>
+                <dt>943</dt>
+                <dd>mandates dispatched — all but 11 authored machine-to-machine</dd>
+              </div>
+              <div>
+                <dt>281</dt>
+                <dd>worker lanes across 220 isolated worktrees</dd>
+              </div>
+              <div>
+                <dt>168&#8202;h</dt>
+                <dd>of model time inside 92 wall-clock hours</dd>
+              </div>
+            </dl>
+
             <p>
               Fleets of GLM-5.3-flash workers ran the experiments: each got one narrow task — one bytecode family, one parser region, one test file — in an isolated worktree, and stopped after one verified commit. <a href="https://claude.com/claude-code">Claude Code</a> and <a href="https://openai.com/codex/">Codex</a> ran the oversight loop: plan a wave, review every lane, integrate serially, re-run the gates, re-rank what blocks next, dispatch the next wave.
             </p>
             <p>
-              Four days, measured: 281 worker lanes across 220 isolated worktrees; 943 mandates dispatched, all but eleven authored machine-to-machine by the overseers; 3.7 billion tokens through the fleet at a 97.6% cache-hit rate; more than 55,000 tool calls across workers and overseers; 168 hours of model time inside 92 wall-clock hours, with a watchdog shepherding crashed lanes back to work.
+              Four days, measured: more than 55,000 tool calls across workers and overseers, with a watchdog shepherding crashed lanes back to work.
             </p>
             <p>
               No finding survived on model consensus. Every hypothesis was settled the same way: compile an authored probe on a real VFP9 and compare the bytecode.
@@ -220,7 +240,7 @@
           <img src="/images/foxlift-mark.webp" width="42" height="42" alt="" />
           <span>FoxLift</span>
         </a>
-        <p>Created by <a href="https://github.com/qdis">qdis</a> · Open source under AGPL-3.0 — <a href="https://github.com/foxlift/foxlift">github.com/foxlift/foxlift</a></p>
+        <p>Created by <a href="https://github.com/timo-bejan">timo-bejan</a> · Open source under AGPL-3.0 — <a href="https://github.com/foxlift/foxlift">github.com/foxlift/foxlift</a></p>
       </div>
     </footer>
 
