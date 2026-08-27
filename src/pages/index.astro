@@ -153,6 +153,9 @@
               Fleets of GLM-5.3-flash workers ran the experiments: each got one narrow task — one bytecode family, one parser region, one test file — in an isolated worktree, and stopped after one verified commit. <a href="https://claude.com/claude-code">Claude Code</a> and <a href="https://openai.com/codex/">Codex</a> ran the oversight loop: plan a wave, review every lane, integrate serially, re-run the gates, re-rank what blocks next, dispatch the next wave.
             </p>
             <p>
+              Four days, measured: 281 worker lanes across 220 isolated worktrees; 943 mandates dispatched, all but eleven authored machine-to-machine by the overseers; 3.7 billion tokens through the fleet at a 97.6% cache-hit rate; more than 55,000 tool calls across workers and overseers; 168 hours of model time inside 92 wall-clock hours, with a watchdog shepherding crashed lanes back to work.
+            </p>
+            <p>
               No finding survived on model consensus. Every hypothesis was settled the same way: compile an authored probe on a real VFP9 and compare the bytecode.
             </p>
           </div>
