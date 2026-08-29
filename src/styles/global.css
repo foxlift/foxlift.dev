@@ -621,126 +621,109 @@ p {
   }
 }
 
-/* Where-we-stand status ladder: the hero-facts look, sized for a story section. */
-.stand-facts {
+/* Header nav side group: page links next to the release note. */
+.nav-side {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 1.9rem);
+}
+
+.nav-side .release-note {
+  margin: 0;
+}
+
+.nav-link {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+/* Status and story timeline: dated ladder rows with a marker dot; [data-now] pulses accent. */
+.timeline {
+  list-style: none;
+  margin: 2.8rem 0 3rem;
+  padding: 0;
+}
+
+.timeline li {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 2.6rem 0 2.8rem;
-  border-block: 1px solid var(--line);
+  grid-template-columns: 8.5rem 1fr;
+  gap: clamp(1.25rem, 3.5vw, 2.75rem);
+  padding: 1.9rem 0;
+  border-top: 1px solid var(--line);
 }
 
-.stand-facts div {
-  padding: 1.6rem 1.5rem 1.7rem;
-  border-right: 1px solid var(--line);
+.timeline li:first-child {
+  padding-top: 0;
+  border-top: 0;
 }
 
-.stand-facts div:first-child {
-  padding-left: 0;
+.timeline li:last-child {
+  padding-bottom: 0;
 }
 
-.stand-facts div:last-child {
-  border-right: 0;
-}
-
-.stand-facts dt {
+.story-copy .timeline .timeline-date {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin-top: 0;
+  padding-top: 0.35rem;
+  color: var(--quiet);
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.02rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
   text-transform: uppercase;
 }
 
-.stand-facts dd {
-  margin-top: 0.55rem;
+.timeline .timeline-date::before {
+  content: "";
+  flex: none;
+  width: 0.44rem;
+  height: 0.44rem;
+  border-radius: 50%;
+  background: var(--line-strong);
+  transform: translateY(-0.05rem);
+}
+
+.timeline li[data-now] .timeline-date {
+  color: var(--accent);
+}
+
+.timeline li[data-now] .timeline-date::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 0.26rem color-mix(in srgb, var(--accent), transparent 78%);
+}
+
+.timeline h3 {
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.story-copy .timeline .timeline-body p {
+  max-width: 44rem;
+  margin-top: 0.65rem;
   color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.55;
+  line-height: 1.7;
+}
+
+.story-copy.story-wide {
+  max-width: 56rem;
 }
 
 @media (max-width: 680px) {
-  .stand-facts {
+  .timeline li {
     grid-template-columns: 1fr;
-  }
-
-  .stand-facts div {
-    padding: 1.15rem 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .stand-facts div:last-child {
-    border-bottom: 0;
-  }
-}
-
-/* How-we-built-it campaign highlights: the hero-facts number treatment, four across. */
-.how-facts {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin: 2.6rem 0 2.8rem;
-  border-block: 1px solid var(--line);
-}
-
-.how-facts div {
-  padding: 1.6rem 1.5rem 1.7rem;
-  border-right: 1px solid var(--line);
-}
-
-.how-facts div:first-child {
-  padding-left: 0;
-}
-
-.how-facts div:last-child {
-  border-right: 0;
-}
-
-.how-facts dt {
-  font-family: "JetBrains Mono", monospace;
-  font-size: clamp(1.25rem, 2.2vw, 1.8rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-}
-
-.how-facts dd {
-  margin-top: 0.5rem;
-  color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-@media (max-width: 900px) {
-  .how-facts {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .how-facts div:nth-child(2n) {
-    border-right: 0;
-  }
-
-  .how-facts div:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--line);
-  }
-
-  .how-facts div:nth-child(3) {
-    padding-left: 0;
-  }
-}
-
-@media (max-width: 680px) {
-  .how-facts {
-    grid-template-columns: 1fr;
-  }
-
-  .how-facts div {
-    padding: 1.15rem 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .how-facts div:last-child {
-    border-bottom: 0;
+    gap: 0.6rem;
+    padding: 1.4rem 0;
   }
 }
 
