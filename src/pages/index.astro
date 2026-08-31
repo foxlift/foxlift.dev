@@ -67,7 +67,7 @@
               <dd>sections lifted, development corpus</dd>
             </div>
             <div>
-              <dt>94.9%</dt>
+              <dt>95.7%</dt>
               <dd>sections lifted, held-out repos</dd>
             </div>
             <div>
@@ -81,7 +81,7 @@
       <section class="section story" id="quickstart">
         <div class="shell story-grid">
           <div class="story-copy" data-reveal>
-            <h2>Two commands.</h2>
+            <h2>Three commands.</h2>
             <p class="lead">
               Install from PyPI, point it at a compiled binary — .exe, .app, .fxp, .scx, .vcx — and read the verdict. No FoxPro installation needed to decompile.
             </p>
@@ -90,6 +90,7 @@
 
 foxlift inspect erp_client.exe            # what is inside
 foxlift decompile erp_client.exe -o recovered/
+foxlift extract erp_client.exe -o project/   # v0.3: the named project tree
 &#123;
   "outdir": "recovered/",
   "modules": 13,
@@ -159,7 +160,7 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
               The repo ships a small authored demo project. Compile it on VFP9, decompile it with the CLI, recompile the output: statement frames and symbol tables come back byte-identical. Exit codes, hashes, and per-section verdicts are committed alongside it.
             </p>
             <p>
-              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per round and never tuned on — 95.1% of validation sections and 94.9% of held-out sections lift. Recompiling decompiled compiled programs on a real VFP9 reproduces the original bytecode frames for 95% of the measured population.
+              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per round and never tuned on — every validation section lifts (2,007 of 2,007) and 95.7% of held-out sections lift. Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,579 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
             </p>
             <p>
               Some things provably cannot come back: comments are never compiled, DECLARE parameter names are discarded, WAIT WINDOW clause order is canonicalised by the compiler, and some identifiers are blanked by the compiler itself. FoxLift proves what is unrecoverable and never invents it.
@@ -201,27 +202,40 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
                   </p>
                 </div>
               </li>
+              <li>
+                <p class="timeline-date">Aug 31</p>
+                <div class="timeline-body">
+                  <h3>v0.3.0 — whole applications, and closed parity</h3>
+                  <p>
+                    <code>foxlift extract</code> unpacks an .exe or .app into a named project
+                    tree — compiled members lifted back to source, tables and resources
+                    byte-for-byte — and the library reassembles a .pjx that VFP9 rebuilds
+                    headless. Parity on the development corpus is closed: every method section
+                    lifts, 29,579 of 29,597 form and class sections and 2,007 of 2,007
+                    validation sections recompile frame-equal, and every remaining difference
+                    is a documented, oracle-proven loss in compilation.
+                  </p>
+                </div>
+              </li>
               <li data-now>
                 <p class="timeline-date">Now</p>
                 <div class="timeline-body">
-                  <h3>Currently working on: artifact reconstruction</h3>
+                  <h3>Currently working on: the long tail</h3>
                   <p>
-                    Writing the binaries back. The table writer already regenerates all 522
-                    development .scx/.vcx/.mnx/.dbf files byte-identical, reconstructed forms
-                    recompile on real VFP9 with 98.2% of method sections frame-equal, and a
-                    writer-generated .pjx project has linked into a byte-identical .app on the
-                    compiler rig — fully headless. Shipping that loop end to end — decompile,
-                    regenerate, BUILD APP — is the work in flight.
+                    Sweeping the statement forms no probe has measured yet against the real
+                    VFP9 oracle, and closing coverage on large shipped binaries — the same
+                    census-and-proof loop that closed the development corpus, pointed at
+                    everything that still refuses.
                   </p>
                 </div>
               </li>
               <li>
                 <p class="timeline-date">Next</p>
                 <div class="timeline-body">
-                  <h3>Whole applications</h3>
+                  <h3>Reports and the rest</h3>
                   <p>
-                    Point FoxLift at an .exe or .app and get back a project that rebuilds and runs
-                    in VFP9 — reports and the remaining artifact types close out the set.
+                    Report definitions (.frx) and the remaining artifact types close out the
+                    set, so a whole application round-trips without exceptions.
                   </p>
                 </div>
               </li>
