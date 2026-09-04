@@ -67,7 +67,7 @@
               <dd>sections lifted, development corpus</dd>
             </div>
             <div>
-              <dt>95.7%</dt>
+              <dt>98.5%</dt>
               <dd>sections lifted, held-out repos</dd>
             </div>
             <div>
@@ -217,15 +217,32 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
                   </p>
                 </div>
               </li>
+              <li>
+                <p class="timeline-date">Sep 4</p>
+                <div class="timeline-body">
+                  <h3>v0.4.0 — a second corpus, and conservation</h3>
+                  <p>
+                    A second benchmark corpus — 29 public repositories, 170,820 modules —
+                    measured under the same rules: 101,719 of 103,363 development
+                    sections lift with zero leaked bytes. Every declared member of every
+                    module on both corpora now leaves a trace in the lifted source. The
+                    held-out repositories, opened once at the wave close, lift 1,015 of
+                    1,030 sections. Dozens of statement and expression banks measured whole
+                    on the oracle: the SET family, BROWSE and popup menus, the DO family,
+                    REPORT FORM, SQL unions and join chains, the scope operator, and the
+                    folded LINENO() line layout.
+                  </p>
+                </div>
+              </li>
               <li data-now>
                 <p class="timeline-date">Now</p>
                 <div class="timeline-body">
-                  <h3>Currently working on: the long tail</h3>
+                  <h3>Currently working on: the long tail of the second corpus</h3>
                   <p>
-                    Sweeping the statement forms no probe has measured yet against the real
-                    VFP9 oracle, and closing coverage on large shipped binaries — the same
-                    census-and-proof loop that closed the development corpus, pointed at
-                    everything that still refuses.
+                    The same census-and-proof loop, pointed at what still refuses on the
+                    second corpus: the SQL SELECT column forms, CREATE CURSOR field banks,
+                    the unmeasured statement leads, and the assignment-target spellings —
+                    each family measured whole against the real VFP9 oracle before it ships.
                   </p>
                 </div>
               </li>
