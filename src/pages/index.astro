@@ -59,6 +59,18 @@
             <p class="hero-summary">
               Compiled VFP9 binaries in. Functionally equivalent, rebuildable projects out.
             </p>
+            <p class="hero-intro">
+              You have a Visual FoxPro 9 application and no longer have its source. FoxLift
+              reads the compiled binary — an <code>.exe</code>, <code>.app</code>,
+              <code>.fxp</code>, <code>.scx</code> or <code>.vcx</code> — and gives you back
+              canonical VFP source with its symbol table, laid out as a project you can open,
+              read and rebuild. It runs offline, and it never guesses: anything it cannot
+              recover is marked in place, naming the exact reason.
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#start">Start here</a>
+              <a class="button button-quiet" href="https://github.com/foxlift/foxlift">Open source on GitHub</a>
+            </div>
           </div>
 
           <dl class="hero-facts" aria-label="FoxLift facts">
@@ -67,37 +79,74 @@
               <dd>sections lifted, development corpus</dd>
             </div>
             <div>
-              <dt>99.2%</dt>
+              <dt>99.3%</dt>
               <dd>sections lifted, held-out repos</dd>
             </div>
             <div>
-              <dt>Offline</dt>
-              <dd>for pure decompilation</dd>
+              <dt>No VFP needed</dt>
+              <dd>to decompile — install and run</dd>
             </div>
           </dl>
         </div>
       </section>
 
-      <section class="section story" id="quickstart">
-        <div class="shell story-grid">
-          <div class="story-copy" data-reveal>
-            <h2>Three commands.</h2>
-            <p class="lead">
-              Install from PyPI, point it at a compiled binary — .exe, .app, .fxp, .scx, .vcx — and read the verdict. No FoxPro installation needed to decompile.
-            </p>
+      <section class="section process" id="start">
+        <div class="shell process-grid">
+          <div class="process-heading" data-reveal>
+            <h2>Start here.</h2>
+            <p>Three commands, and no Visual FoxPro installation. FoxLift is a Python package; decompiling is entirely offline. A real VFP9 is only needed if you want to verify a result by recompiling it yourself.</p>
+          </div>
 
-            <pre class="code-panel"><code>pip install foxlift
-
-foxlift inspect erp_client.exe            # what is inside
-foxlift decompile erp_client.exe -o recovered/
-foxlift extract erp_client.exe -o project/   # v0.3: the named project tree
+          <ol class="process-list" data-reveal>
+            <li>
+              <span>01</span>
+              <div>
+                <h3>Install</h3>
+                <p>Python 3.10 or newer.</p>
+                <pre class="code-panel"><code>pip install foxlift</code></pre>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <h3>Look inside first</h3>
+                <p>Tells you what the binary actually is and what it contains, before you commit to anything. A file that is not VFP is refused cleanly.</p>
+                <pre class="code-panel"><code>foxlift inspect erp_client.exe</code></pre>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <h3>Decompile, or extract the whole project</h3>
+                <p><code>decompile</code> lifts the code to a source tree. <code>extract</code> unpacks an <code>.exe</code> or <code>.app</code> into a named project tree — lifted members plus tables and resources byte-for-byte — and reassembles a <code>.pjx</code> that VFP9 rebuilds.</p>
+                <pre class="code-panel"><code>foxlift decompile erp_client.exe -o recovered/
+foxlift extract    erp_client.exe -o project/</code></pre>
+              </div>
+            </li>
+            <li>
+              <span>04</span>
+              <div>
+                <h3>Read the verdict</h3>
+                <p>Add <code>--json</code> to any command for machine-readable output. Exit <code>0</code> with <code>"verified": true</code> means everything lifted. Exit <code>2</code> is a partial — honestly marked, never a silent failure.</p>
+                <pre class="code-panel"><code>foxlift decompile erp_client.exe -o recovered/ --json
 &#123;
   "outdir": "recovered/",
   "modules": 13,
-  "verified": false                       # exit 2 — a partial, honestly marked
+  "verified": false          # exit 2 — a partial, honestly marked
 &#125;</code></pre>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
 
-            <p>What lands on disk:</p>
+      <section class="section story" id="output">
+        <div class="shell story-grid">
+          <div class="story-copy" data-reveal>
+            <h2>What you get.</h2>
+            <p class="lead">
+              One directory per module, each holding the recovered source, the symbol table, and a per-section verdict you can audit.
+            </p>
 
             <pre class="code-panel"><code>recovered/
 ├── module_000e00/
@@ -119,6 +168,12 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
 
             <p>
               Abridged, but true to shape: every liftable statement comes back as canonical VFP, and anything beyond the measured slice stays in the output as an annotated placeholder naming its exact blocker. Nothing is silently dropped.
+            </p>
+            <p>
+              Concretely: a real production <code>.exe</code> from the development corpus comes back as 13 modules and roughly 10,900 lines of source — 159 of 160 sections lifted, and the one miss labeled in place with the unmeasured SET variant that blocks it.
+            </p>
+            <p class="note">
+              What provably cannot come back: comments are never compiled, DECLARE parameter names are discarded, WAIT WINDOW clause order is canonicalised by the compiler, and some identifiers are blanked by the compiler itself. FoxLift proves what is unrecoverable rather than inventing it.
             </p>
           </div>
         </div>
@@ -160,7 +215,7 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
               The repo ships a small authored demo project. Compile it on VFP9, decompile it with the CLI, recompile the output: statement frames and symbol tables come back byte-identical. Exit codes, hashes, and per-section verdicts are committed alongside it.
             </p>
             <p>
-              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per round and never tuned on — every validation section lifts (2,007 of 2,007) and 95.7% of held-out sections lift. Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,579 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
+              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per round and never tuned on — every validation section lifts (2,007 of 2,007) and 1,023 of 1,030 held-out sections lift (99.3%). Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,595 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
             </p>
             <p>
               Some things provably cannot come back: comments are never compiled, DECLARE parameter names are discarded, WAIT WINDOW clause order is canonicalised by the compiler, and some identifiers are blanked by the compiler itself. FoxLift proves what is unrecoverable and never invents it.
@@ -175,7 +230,7 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
           <div class="story-copy" data-reveal>
             <h2>Where we stand.</h2>
             <p class="lead">
-              Method code comes back today; whole rebuildable projects are the roadmap. In between, partial results are the contract, not a failure mode.
+              Method code comes back today and whole applications extract to a rebuildable project tree; report definitions are the remaining gap. In between, partial results are the contract, not a failure mode.
             </p>
 
             <ol class="timeline" aria-label="Project status timeline">
@@ -252,21 +307,39 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
                   </p>
                 </div>
               </li>
+              <li>
+                <p class="timeline-date">Sep 12</p>
+                <div class="timeline-body">
+                  <h3>v0.6.0 — the wave-3 close</h3>
+                  <p>
+                    Five decoder lanes measured together on one tree: 103,015 of 103,363
+                    development sections of the second corpus lift with zero leaked bytes, and
+                    blocked sections fell from 565 to 348 across 92 refusal classes. Both sealed
+                    splits opened once with no tuning after — the held-out repositories lift
+                    1,023 of 1,030, the sealed second-corpus split 13,845 of 13,978, where three
+                    refusal classes emptied and none grew. New readings: the expression reader's
+                    value and statement sides, the CAST channel and the round-78 residue, CREATE
+                    CURSOR field tails, and the work queue's five largest families — DO WITH,
+                    the SET ids, UPDATE SET, USE tails and DO CASE.
+                  </p>
+                </div>
+              </li>
               <li data-now>
                 <p class="timeline-date">Now</p>
                 <div class="timeline-body">
                   <h3>Where things stand</h3>
                   <p>
-                    Wave 2 is closed. On the second corpus the lift went from 92.0% at the
-                    first wave's close to 99.45%, and the blocked sections from 7,867 to 565
-                    in 106 classes. On the first corpus every development section lifts and
-                    the table path stands at 29,581 of 29,597 sections. Wave 3 starts with
-                    the expression reader's three remaining refusals, which three lanes wait
-                    on, then the assignment-target residue, the CREATE CURSOR field tails,
-                    and the work queue's largest families: DO WITH, the SET variants, UPDATE
-                    SET, USE tails and DO CASE. Each family is measured whole against the
-                    real VFP9 oracle before it ships, and every figure on this page comes
-                    from that measurement.
+                    Wave 3 is closed. On the second corpus the lift stands at 99.66% and the
+                    blocked sections at 348 in 92 classes over 257 records — down from 7,867 at
+                    the first wave's close. On the first corpus every development and validation
+                    section lifts, and the table path stands at 29,595 of 29,597. The residual is
+                    still mostly one class deep: closing a single refusal class would fully
+                    unblock 211 of the 257 remaining records. Wave 4 takes the work queue's top
+                    three — the unterminated 43 group, RECALL trailing bytes and unresolved
+                    INSERT column lists — then hardens the table-path instrument and reads the
+                    frame-shape families the tables keep. Each family is measured whole against
+                    a real VFP9 oracle before it ships, and every figure on this page comes from
+                    that measurement.
                   </p>
                 </div>
               </li>
