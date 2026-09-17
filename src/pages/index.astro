@@ -215,7 +215,7 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
               The repo ships a small authored demo project. Compile it on VFP9, decompile it with the CLI, recompile the output: statement frames and symbol tables come back byte-identical. Exit codes, hashes, and per-section verdicts are committed alongside it.
             </p>
             <p>
-              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per round and never tuned on — every validation section lifts (2,007 of 2,007) and 1,023 of 1,030 held-out sections lift (99.3%). Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,595 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
+              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On a second corpus of public repositories, 103,317 of 103,363 development sections lift (99.9555%). On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per wave close and never tuned on — every validation section lifts (2,007 of 2,007) and 1,023 of 1,030 held-out sections lift (99.3%, last sealed at the wave-3 close). Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,595 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
             </p>
             <p>
               Some things provably cannot come back: comments are never compiled, DECLARE parameter names are discarded, WAIT WINDOW clause order is canonicalised by the compiler, and some identifiers are blanked by the compiler itself. FoxLift proves what is unrecoverable and never invents it.
@@ -324,22 +324,38 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
                   </p>
                 </div>
               </li>
+              <li>
+                <p class="timeline-date">Sep 17</p>
+                <div class="timeline-body">
+                  <h3>v0.7.0 — wave 4 on the development split</h3>
+                  <p>
+                    Fifty-two refusal classes closed one at a time on the second corpus:
+                    103,317 of 103,363 development sections lift with zero leaked bytes
+                    (0.6.0: 103,015), and blocked sections fell from 348 in 92 classes over
+                    257 records to 45 in 40 over 42. Compiled programs 5,296 of 5,476.
+                    New readings include PACK MEMO, ALTER TABLE DROP COLUMN, SHOW WINDOW ALL,
+                    DEFINE POPUP FONT, CLOSE DEBUGGER, CREATE FORM/CLASS/DATABASE, COMPILE
+                    FORM, and the statement and expression banks recorded in the changelog.
+                    The sealed splits were not reopened: held-out figures are still the
+                    0.6.0 readings. This is not a wave close.
+                  </p>
+                </div>
+              </li>
               <li data-now>
                 <p class="timeline-date">Now</p>
                 <div class="timeline-body">
                   <h3>Where things stand</h3>
                   <p>
-                    Wave 3 is closed. On the second corpus the lift stands at 99.66% and the
-                    blocked sections at 348 in 92 classes over 257 records — down from 7,867 at
-                    the first wave's close. On the first corpus every development and validation
-                    section lifts, and the table path stands at 29,595 of 29,597. The residual is
-                    still mostly one class deep: closing a single refusal class would fully
-                    unblock 211 of the 257 remaining records. Wave 4 takes the work queue's top
-                    three — the unterminated 43 group, RECALL trailing bytes and unresolved
-                    INSERT column lists — then hardens the table-path instrument and reads the
-                    frame-shape families the tables keep. Each family is measured whole against
-                    a real VFP9 oracle before it ships, and every figure on this page comes from
-                    that measurement.
+                    Wave 4 is in progress. On the second corpus the development lift stands
+                    at 99.9555% (103,317 of 103,363) with 45 blocked sections in 40 classes
+                    over 42 records, down from 7,867 at the first wave's close. On the first
+                    corpus every development and validation section still lifts, and the
+                    table path last measured at the wave-3 close stands at 29,595 of 29,597.
+                    The residual is a long tail of single-record classes. The remaining
+                    closer work is the table-path instrument and the frame-shape families
+                    the tables keep, then the wave-4 close that re-opens each seal once.
+                    Each family is measured whole against a real VFP9 oracle before it ships,
+                    and every figure on this page comes from that measurement.
                   </p>
                 </div>
               </li>
