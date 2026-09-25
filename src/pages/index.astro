@@ -215,7 +215,7 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
               The repo ships a small authored demo project. Compile it on VFP9, decompile it with the CLI, recompile the output: statement frames and symbol tables come back byte-identical. Exit codes, hashes, and per-section verdicts are committed alongside it.
             </p>
             <p>
-              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On a second corpus of public repositories, 103,317 of 103,363 development sections lift (99.9555%). On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per wave close and never tuned on — every validation section lifts (2,007 of 2,007) and 1,023 of 1,030 held-out sections lift (99.3%, last sealed at the wave-3 close). Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,595 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
+              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On a second corpus of public repositories, every one of 103,363 development sections lifts. On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per wave close and never tuned on — every validation section lifts (2,007 of 2,007) and every held-out section lifts (1,030 of 1,030, opened once at the wave-4 close); the second corpus's sealed split lifts 13,969 of 13,978 (99.94%). Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,595 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
             </p>
             <p>
               Some things provably cannot come back: comments are never compiled, DECLARE parameter names are discarded, WAIT WINDOW clause order is canonicalised by the compiler, and some identifiers are blanked by the compiler itself. FoxLift proves what is unrecoverable and never invents it.
@@ -341,21 +341,38 @@ MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
                   </p>
                 </div>
               </li>
+              <li>
+                <p class="timeline-date">Sep 25</p>
+                <div class="timeline-body">
+                  <h3>v0.8.0 — the wave-4 close</h3>
+                  <p>
+                    Every wave-4 lane measured together on one tree. Every development section
+                    of the second corpus lifts, 103,363 of 103,363, and the first corpus's last
+                    named refusals are gone, two of them shapes once registered as unreachable:
+                    <code>28 08 2d</code> is INSERT BLANK AFTER, and a bare <code>b8</code> is the
+                    stray ENDIF VFP9 writes beside its own diagnostic. Both sealed splits opened
+                    once with no tuning after — the held-out repositories lift 1,030 of 1,030, the
+                    sealed second-corpus split 13,969 of 13,978. Before the seals opened, the
+                    table path was found pairing records by position while VFP9 drops deleted
+                    ones on recompile; every table-path figure now carries the old reading beside
+                    the corrected one, and the corrected second-corpus figure is 99.16%.
+                  </p>
+                </div>
+              </li>
               <li data-now>
                 <p class="timeline-date">Now</p>
                 <div class="timeline-body">
                   <h3>Where things stand</h3>
                   <p>
-                    Wave 4 is in progress. On the second corpus the development lift stands
-                    at 99.9555% (103,317 of 103,363) with 45 blocked sections in 40 classes
-                    over 42 records, down from 7,867 at the first wave's close. On the first
-                    corpus every development and validation section still lifts, and the
-                    table path last measured at the wave-3 close stands at 29,595 of 29,597.
-                    The residual is a long tail of single-record classes. The remaining
-                    closer work is the table-path instrument and the frame-shape families
-                    the tables keep, then the wave-4 close that re-opens each seal once.
-                    Each family is measured whole against a real VFP9 oracle before it ships,
-                    and every figure on this page comes from that measurement.
+                    Wave 4 is closed. Every development, validation and held-out section of the
+                    first corpus lifts, and 29,595 of its 29,597 form and class sections
+                    recompile frame-equal. On the second corpus every development section lifts
+                    and the work queue of blocked records is empty; what remains is 171 compiled
+                    programs held by 25 refusal classes, the frame shapes behind the last 0.84%
+                    of the table path, and the Western-code-page forms a Chinese-locale oracle
+                    cannot reproduce. Wave 5 takes those on, each family measured whole against a
+                    real VFP9 oracle before it ships, and every figure on this page comes from
+                    that measurement.
                   </p>
                 </div>
               </li>
