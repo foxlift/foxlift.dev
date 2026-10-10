@@ -1,23 +1,14 @@
-// ABOUTME: Reveals landing-page content as it enters the viewport.
-// ABOUTME: Uses a browser-native observer and respects reduced-motion preferences.
-document.documentElement.classList.add("js");
-
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const revealItems = document.querySelectorAll<HTMLElement>("[data-reveal]");
-
-if (reduceMotion || !("IntersectionObserver" in window)) {
-  revealItems.forEach((item) => item.setAttribute("data-visible", ""));
-} else {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.setAttribute("data-visible", "");
-        observer.unobserve(entry.target);
-      });
-    },
-    { rootMargin: "0px 0px -10%", threshold: 0.14 },
-  );
-
-  revealItems.forEach((item) => observer.observe(item));
-}
+// ABOUTME: Wires the landing page's copy buttons to the clipboard.
+// ABOUTME: Each button copies its data-copy text and briefly confirms on its own label.
+document.querySelectorAll<HTMLButtonElement>("button[data-copy]").forEach((button) => {
+  const label = button.textContent;
+  button.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy ?? "");
+      button.textContent = "Copied";
+    } catch {
+      button.textContent = "Copy failed";
+    }
+    window.setTimeout(() => (button.textContent = label), 1600);
+  });
+});

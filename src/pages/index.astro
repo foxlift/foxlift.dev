@@ -1,33 +1,27 @@
-<!-- ABOUTME: Introduces FoxLift with a direct product explanation, origin story, and measured results. -->
-<!-- ABOUTME: Launch landing page: every number is sourced from the repo's receipts and status docs. -->
+<!-- ABOUTME: FoxLift's landing page: install, a real decompile session, the three commands and the measured figures. -->
+<!-- ABOUTME: The terminal output is verbatim from foxlift 0.9.0; every figure comes from the release's docs/STATUS.md. -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#101212" />
+    <meta name="theme-color" content="#0d0f0f" />
     <meta
       name="description"
-      content="FoxLift is an open-source Visual FoxPro 9 decompiler. Compiled binaries in, functionally equivalent and rebuildable projects out."
+      content="FoxLift is an open-source Visual FoxPro 9 decompiler. Compiled .exe, .app, .fxp, .scx and .vcx files in, readable and rebuildable VFP source out."
     />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="FoxLift" />
     <meta property="og:title" content="FoxLift | Visual FoxPro 9 decompiler" />
-    <meta
-      property="og:description"
-      content="Compiled Visual FoxPro 9 binaries in. Functionally equivalent, rebuildable projects out."
-    />
+    <meta property="og:description" content="Compiled Visual FoxPro 9 in. Readable, rebuildable source out." />
     <meta property="og:url" content="https://foxlift.dev/" />
     <meta property="og:image" content="https://foxlift.dev/images/foxlift-og.webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="FoxLift | Visual FoxPro 9 decompiler" />
-    <meta
-      name="twitter:description"
-      content="Compiled Visual FoxPro 9 binaries in. Functionally equivalent, rebuildable projects out."
-    />
+    <meta name="twitter:description" content="Compiled Visual FoxPro 9 in. Readable, rebuildable source out." />
     <meta name="twitter:image" content="https://foxlift.dev/images/foxlift-og.webp" />
     <link rel="canonical" href="https://foxlift.dev/" />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -40,393 +34,141 @@
 
     <header class="site-header">
       <nav class="shell nav" aria-label="Main navigation">
-        <a class="brand" href="#top" aria-label="FoxLift home">
-          <img src="/images/foxlift-mark.webp" width="42" height="42" alt="" fetchpriority="high" />
+        <a class="brand" href="/" aria-label="FoxLift home">
+          <img src="/images/foxlift-mark.webp" width="28" height="28" alt="" fetchpriority="high" />
           <span>FoxLift</span>
         </a>
-        <div class="nav-side">
-          <a class="nav-link" href="/about/">About</a>
-          <p class="release-note"><span aria-hidden="true"></span><a href="https://github.com/foxlift/foxlift">Open source on GitHub</a></p>
+        <a class="version" href="https://github.com/foxlift/foxlift/releases/tag/v0.9.0">v0.9.0</a>
+        <div class="nav-links">
+          <a href="https://github.com/foxlift/foxlift#readme">Docs</a>
+          <a class="nav-optional" href="https://github.com/foxlift/foxlift/blob/main/CHANGELOG.md">Changelog</a>
+          <a href="https://github.com/foxlift/foxlift">GitHub</a>
         </div>
       </nav>
     </header>
 
     <main id="main-content">
-      <section class="hero" id="top">
+      <section class="hero">
         <div class="shell hero-grid">
           <div class="hero-copy">
-            <h1>Visual FoxPro&nbsp;9 decompiler.</h1>
-            <p class="hero-summary">
-              Compiled VFP9 binaries in. Functionally equivalent, rebuildable projects out.
+            <p class="eyebrow">Open-source Visual FoxPro 9 decompiler</p>
+            <h1>Get your FoxPro source back.</h1>
+            <p class="lead">
+              FoxLift reads compiled <code>.exe</code>, <code>.app</code>, <code>.fxp</code>, <code>.scx</code> and <code>.vcx</code> files
+              and writes VFP source you can read, version and rebuild. It runs offline and never needs Visual
+              FoxPro installed.
             </p>
-            <p class="hero-intro">
-              You have a Visual FoxPro 9 application and no longer have its source. FoxLift
-              reads the compiled binary — an <code>.exe</code>, <code>.app</code>,
-              <code>.fxp</code>, <code>.scx</code> or <code>.vcx</code> — and gives you back
-              canonical VFP source with its symbol table, laid out as a project you can open,
-              read and rebuild. It runs offline, and it never guesses: anything it cannot
-              recover is marked in place, naming the exact reason.
-            </p>
-            <div class="hero-actions">
-              <a class="button" href="#start">Start here</a>
-              <a class="button button-quiet" href="https://github.com/foxlift/foxlift">Open source on GitHub</a>
+            <div class="install">
+              <code><span class="prompt">$</span> pipx install foxlift</code>
+              <button type="button" data-copy="pipx install foxlift" aria-label="Copy install command">Copy</button>
             </div>
+            <p class="install-alt">
+              or <code>uv tool install foxlift</code> · <code>pip install foxlift</code> · Python 3.10+
+            </p>
           </div>
 
-          <dl class="hero-facts" aria-label="FoxLift facts">
-            <div>
-              <dt>10,514 / 10,514</dt>
-              <dd>sections lifted, development corpus</dd>
-            </div>
-            <div>
-              <dt>99.3%</dt>
-              <dd>sections lifted, held-out repos</dd>
-            </div>
-            <div>
-              <dt>No VFP needed</dt>
-              <dd>to decompile — install and run</dd>
-            </div>
+          <figure class="terminal" aria-label="A FoxLift decompile session">
+            <div class="terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+<pre><code><span class="prompt">$</span> foxlift decompile saveorder.fxp -o recovered/
+<span class="out">&#123;
+  "outdir": "recovered",
+  "modules": 1,
+  <span class="ok">"verified": true</span>
+&#125;</span>
+<span class="prompt">$</span> ls recovered/module_000000
+<span class="out">meta.json  source.prg  symbols.txt</span>
+<span class="prompt">$</span> cat recovered/module_000000/source.prg
+<span class="k">LPARAMETERS</span> TCORDERNO
+<span class="k">LOCAL</span> LNTOTAL
+LNTOTAL = <span class="n">0</span>
+<span class="k">SELECT</span> ORDERS
+<span class="k">LOCATE FOR</span> ORDER_NO = TCORDERNO
+<span class="k">IF</span> FOUND()
+    LNTOTAL = ORDERS.QTY * ORDERS.PRICE
+    <span class="k">REPLACE</span> ORDERS.TOTAL <span class="k">WITH</span> LNTOTAL
+    MESSAGEBOX(<span class="s">"Order "</span> + TCORDERNO + <span class="s">" saved"</span>, <span class="n">64</span>, <span class="s">"Orders"</span>)
+<span class="k">ELSE</span>
+    <span class="k">WAIT WINDOW</span> <span class="s">"Order not found"</span> <span class="k">NOWAIT</span>
+<span class="k">ENDIF</span>
+<span class="k">RETURN</span> LNTOTAL</code></pre>
+            <figcaption>Recompiled on VFP9, this source gives back the original bytecode and symbol table.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="usage">
+        <div class="shell">
+          <h2>Three commands.</h2>
+          <div class="commands">
+            <article>
+              <h3>inspect</h3>
+              <p>See what a binary holds — format, modules, statements, symbols — without writing anything.</p>
+              <pre><code>foxlift inspect app.exe</code></pre>
+            </article>
+            <article>
+              <h3>decompile</h3>
+              <p>Lift every module to source: one directory per module with <code>source.prg</code>, <code>symbols.txt</code> and per-section verdicts in <code>meta.json</code>.</p>
+              <pre><code>foxlift decompile app.exe -o recovered/</code></pre>
+            </article>
+            <article>
+              <h3>extract</h3>
+              <p>Unpack an <code>.exe</code> or <code>.app</code> into a project tree named from its own directory: <code>.prg</code> and <code>.mpr</code> source, forms and classes with their methods restored, tables and resources byte-for-byte.</p>
+              <pre><code>foxlift extract app.exe -o project/</code></pre>
+            </article>
+          </div>
+
+          <dl class="exit-codes">
+            <div><dt>0</dt><dd>verified — every section lifted</dd></div>
+            <div><dt>2</dt><dd>partial — output written, each miss marked in place with its reason</dd></div>
+            <div><dt>1</dt><dd>refused — not a supported VFP file</dd></div>
           </dl>
+          <p class="hint">Add <code>--json</code> to any command for machine-readable output.</p>
         </div>
       </section>
 
-      <section class="section process" id="start">
-        <div class="shell process-grid">
-          <div class="process-heading" data-reveal>
-            <h2>Start here.</h2>
-            <p>Three commands, and no Visual FoxPro installation. FoxLift is a Python package; decompiling is entirely offline. A real VFP9 is only needed if you want to verify a result by recompiling it yourself.</p>
-          </div>
-
-          <ol class="process-list" data-reveal>
-            <li>
-              <span>01</span>
-              <div>
-                <h3>Install</h3>
-                <p>Python 3.10 or newer.</p>
-                <pre class="code-panel"><code>pip install foxlift</code></pre>
-              </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <h3>Look inside first</h3>
-                <p>Tells you what the binary actually is and what it contains, before you commit to anything. A file that is not VFP is refused cleanly.</p>
-                <pre class="code-panel"><code>foxlift inspect erp_client.exe</code></pre>
-              </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <h3>Decompile, or extract the whole project</h3>
-                <p><code>decompile</code> lifts the code to a source tree. <code>extract</code> unpacks an <code>.exe</code> or <code>.app</code> into a named project tree — lifted members plus tables and resources byte-for-byte — and reassembles a <code>.pjx</code> that VFP9 rebuilds.</p>
-                <pre class="code-panel"><code>foxlift decompile erp_client.exe -o recovered/
-foxlift extract    erp_client.exe -o project/</code></pre>
-              </div>
-            </li>
-            <li>
-              <span>04</span>
-              <div>
-                <h3>Read the verdict</h3>
-                <p>Add <code>--json</code> to any command for machine-readable output. Exit <code>0</code> with <code>"verified": true</code> means everything lifted. Exit <code>2</code> is a partial — honestly marked, never a silent failure.</p>
-                <pre class="code-panel"><code>foxlift decompile erp_client.exe -o recovered/ --json
-&#123;
-  "outdir": "recovered/",
-  "modules": 13,
-  "verified": false          # exit 2 — a partial, honestly marked
-&#125;</code></pre>
-              </div>
-            </li>
-          </ol>
+      <section class="section" id="figures">
+        <div class="shell">
+          <h2>Measured, not guessed.</h2>
+          <dl class="figures">
+            <div><dt>103,363<small> / 103,363</small></dt><dd>sections lift across 19 public VFP repositories</dd></div>
+            <div><dt>5,476<small> / 5,476</small></dt><dd>compiled programs lift in the same repositories</dd></div>
+            <div><dt>29,595<small> / 29,597</small></dt><dd>form and class sections recompile on VFP9 to the original statement bytecode</dd></div>
+            <div><dt>13,976<small> / 13,978</small></dt><dd>sections lift on sealed repositories no rule was ever tuned on</dd></div>
+          </dl>
+          <p class="hint">
+            Every figure is checked against a real Visual FoxPro 9 SP2 compiler. <a href="https://github.com/foxlift/foxlift/tree/main/demo">Reproduce the round trip yourself.</a>
+          </p>
         </div>
       </section>
 
-      <section class="section story" id="output">
-        <div class="shell story-grid">
-          <div class="story-copy" data-reveal>
-            <h2>What you get.</h2>
-            <p class="lead">
-              One directory per module, each holding the recovered source, the symbol table, and a per-section verdict you can audit.
-            </p>
-
-            <pre class="code-panel"><code>recovered/
-├── module_000e00/
-│   ├── source.prg      # canonical VFP source
-│   ├── symbols.txt     # recovered symbol table
-│   └── meta.json       # per-section verdicts, with reasons
-└── module_005e00/ …</code></pre>
-
-            <p>And inside a <code>source.prg</code>:</p>
-
-            <pre class="code-panel"><code>* --- section 1 ---
-LPARAMETERS TCORDERNO
-SELECT ORDERS
-LOCATE FOR ORDER_NO = TCORDERNO
-THIS.PARENT.TXTCUSTOMER.VALUE = ORDERS.CUST_NAME
-THIS.PARENT.CDSAVE.ENABLED = .T.
-MESSAGEBOX("Loaded " + TCORDERNO, 64, "Orders")
-* --- section 2 (1 statement(s) beyond the supported slice: SET variant outside forced subset) ---</code></pre>
-
-            <p>
-              Abridged, but true to shape: every liftable statement comes back as canonical VFP, and anything beyond the measured slice stays in the output as an annotated placeholder naming its exact blocker. Nothing is silently dropped.
-            </p>
-            <p>
-              Concretely: a real production <code>.exe</code> from the development corpus comes back as 13 modules and roughly 10,900 lines of source — 159 of 160 sections lifted, and the one miss labeled in place with the unmeasured SET variant that blocks it.
-            </p>
-            <p class="note">
-              What provably cannot come back: comments are never compiled, DECLARE parameter names are discarded, WAIT WINDOW clause order is canonicalised by the compiler, and some identifiers are blanked by the compiler itself. FoxLift proves what is unrecoverable rather than inventing it.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section process" id="process">
-        <div class="shell process-grid">
-          <div class="process-heading" data-reveal>
-            <h2>What it does.</h2>
-            <p>FoxLift follows a measured path from binary containers back to buildable VFP projects. The standard is simple: recovered projects must rebuild and behave like the compiled input — readable guesses are not enough.</p>
-          </div>
-
-          <ol class="process-list" data-reveal>
-            <li>
-              <span>01</span>
-              <div><h3>Read</h3><p>Find modules, forms, classes, reports, menus, and resources.</p></div>
-            </li>
-            <li>
-              <span>02</span>
-              <div><h3>Lift</h3><p>Decode measured bytecode, symbols, expressions, and control flow.</p></div>
-            </li>
-            <li>
-              <span>03</span>
-              <div><h3>Write</h3><p>Emit functionally equivalent VFP source and project artifacts.</p></div>
-            </li>
-            <li>
-              <span>04</span>
-              <div><h3>Verify</h3><p>Rebuild in VFP9 and compare canonical bytecode.</p></div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <section class="section story" id="receipts">
-        <div class="shell story-grid">
-          <div class="story-copy" data-reveal>
-            <h2>Round-trip, with receipts.</h2>
-            <p class="lead">
-              The repo ships a small authored demo project. Compile it on VFP9, decompile it with the CLI, recompile the output: statement frames and symbol tables come back byte-identical. Exit codes, hashes, and per-section verdicts are committed alongside it.
-            </p>
-            <p>
-              Every benchmark corpus is public VFP code on GitHub. On the development corpus — <a href="https://github.com/luhongbin/YiFeiERP">luhongbin/YiFeiERP</a>, one vendor's real ERP estate of forms and class libraries — 10,514 of 10,514 method sections lift, none blocked, none silently dropped. On a second corpus of public repositories, every one of 103,363 development sections lifts. On repositories never used to infer schemas — <a href="https://github.com/VFPX/AATest">VFPX/AATest</a>, <a href="https://github.com/RubenAlejandroFalcon/ARoMal">ARoMal</a>, and <a href="https://github.com/VFPX/ReportingApps">VFPX/ReportingApps</a> for validation, plus held-out repos such as <a href="https://github.com/ankuryu/vfpObjbill">vfpObjbill</a> opened once per wave close and never tuned on — every validation section lifts (2,007 of 2,007) and every held-out section lifts (1,030 of 1,030, opened once at the wave-4 close); the second corpus's sealed split lifts 13,969 of 13,978 (99.94%). Recompiling the decompiled output on a real VFP9 reproduces the original bytecode frames for 29,595 of 29,597 development form and class sections; every remaining difference is a documented, oracle-proven loss in compilation, never a guess.
-            </p>
-            <p>
-              Some things provably cannot come back: comments are never compiled, DECLARE parameter names are discarded, WAIT WINDOW clause order is canonicalised by the compiler, and some identifiers are blanked by the compiler itself. FoxLift proves what is unrecoverable and never invents it.
-            </p>
-            <a class="button" href="https://github.com/foxlift/foxlift/tree/main/demo">See the demo receipts</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section story" id="status">
-        <div class="shell story-grid">
-          <div class="story-copy" data-reveal>
-            <h2>Where we stand.</h2>
-            <p class="lead">
-              Method code comes back today and whole applications extract to a rebuildable project tree; report definitions are the remaining gap. In between, partial results are the contract, not a failure mode.
-            </p>
-
-            <ol class="timeline" aria-label="Project status timeline">
-              <li>
-                <p class="timeline-date">Aug 27</p>
-                <div class="timeline-body">
-                  <h3>v0.1.0 — first public release</h3>
-                  <p>
-                    Forms and class libraries (.scx/.vcx), compiled programs (.fxp), and module
-                    scans of .app/.exe decompile to per-module VFP source with symbols and
-                    per-section verdicts. Round-trip demo with committed
-                    receipts. On <a href="https://pypi.org/project/foxlift/">PyPI</a> and <a href="https://github.com/foxlift/foxlift">GitHub</a>.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Aug 28</p>
-                <div class="timeline-body">
-                  <h3>v0.2.0 — compiled programs and menus</h3>
-                  <p>
-                    DEFINE CLASS scaffolds in .fxp, compiled menu programs (.mpx), SQL decode, and
-                    non-Latin code pages. Recompiling the decompiled output on real VFP9
-                    reproduces the original bytecode frames for 95% of the measured population.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Aug 31</p>
-                <div class="timeline-body">
-                  <h3>v0.3.0 — whole applications, and closed parity</h3>
-                  <p>
-                    <code>foxlift extract</code> unpacks an .exe or .app into a named project
-                    tree — compiled members lifted back to source, tables and resources
-                    byte-for-byte — and the library reassembles a .pjx that VFP9 rebuilds
-                    headless. Parity on the development corpus is closed: every method section
-                    lifts, 29,579 of 29,597 form and class sections and 2,007 of 2,007
-                    validation sections recompile frame-equal, and every remaining difference
-                    is a documented, oracle-proven loss in compilation.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Sep 4</p>
-                <div class="timeline-body">
-                  <h3>v0.4.0 — a second corpus, and conservation</h3>
-                  <p>
-                    A second benchmark corpus — 29 public repositories, 170,820 modules —
-                    measured under the same rules: 101,719 of 103,363 development
-                    sections lift with zero leaked bytes. Every declared member of every
-                    module on both corpora now leaves a trace in the lifted source. The
-                    held-out repositories, opened once at the wave close, lift 1,015 of
-                    1,030 sections. Dozens of statement and expression banks measured whole
-                    on the oracle: the SET family, BROWSE and popup menus, the DO family,
-                    REPORT FORM, SQL unions and join chains, the scope operator, and the
-                    folded LINENO() line layout.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Sep 6</p>
-                <div class="timeline-body">
-                  <h3>v0.5.0 — the wave-2 close, measured on both corpora</h3>
-                  <p>
-                    Every law of the second wave measured together on one tree: 102,798 of
-                    103,363 development sections of the second corpus lift with zero leaked
-                    bytes, and blocked sections fell from 1,644 to 565. Both sealed splits
-                    opened once, with no tuning after: the held-out repositories lift 1,022
-                    of 1,030 sections, the sealed second-corpus split 13,809 of 13,978.
-                    Member conservation holds on both corpora and on the sealed split. New
-                    readings: the SQL SELECT column and destination forms, CREATE CURSOR
-                    field banks from one declarative table, the remaining statement leads,
-                    the assignment-target spellings, 159 measured function arities, and
-                    constant folds written back from an oracle-confirmed table of preimages.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Sep 12</p>
-                <div class="timeline-body">
-                  <h3>v0.6.0 — the wave-3 close</h3>
-                  <p>
-                    Five decoder lanes measured together on one tree: 103,015 of 103,363
-                    development sections of the second corpus lift with zero leaked bytes, and
-                    blocked sections fell from 565 to 348 across 92 refusal classes. Both sealed
-                    splits opened once with no tuning after — the held-out repositories lift
-                    1,023 of 1,030, the sealed second-corpus split 13,845 of 13,978, where three
-                    refusal classes emptied and none grew. New readings: the expression reader's
-                    value and statement sides, the CAST channel and the round-78 residue, CREATE
-                    CURSOR field tails, and the work queue's five largest families — DO WITH,
-                    the SET ids, UPDATE SET, USE tails and DO CASE.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Sep 17</p>
-                <div class="timeline-body">
-                  <h3>v0.7.0 — wave 4 on the development split</h3>
-                  <p>
-                    Fifty-two refusal classes closed one at a time on the second corpus:
-                    103,317 of 103,363 development sections lift with zero leaked bytes
-                    (0.6.0: 103,015), and blocked sections fell from 348 in 92 classes over
-                    257 records to 45 in 40 over 42. Compiled programs 5,296 of 5,476.
-                    New readings include PACK MEMO, ALTER TABLE DROP COLUMN, SHOW WINDOW ALL,
-                    DEFINE POPUP FONT, CLOSE DEBUGGER, CREATE FORM/CLASS/DATABASE, COMPILE
-                    FORM, and the statement and expression banks recorded in the changelog.
-                    The sealed splits were not reopened: held-out figures are still the
-                    0.6.0 readings. This is not a wave close.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Sep 25</p>
-                <div class="timeline-body">
-                  <h3>v0.8.0 — the wave-4 close</h3>
-                  <p>
-                    Every wave-4 lane measured together on one tree. Every development section
-                    of the second corpus lifts, 103,363 of 103,363, and the first corpus's last
-                    named refusals are gone, two of them shapes once registered as unreachable:
-                    <code>28 08 2d</code> is INSERT BLANK AFTER, and a bare <code>b8</code> is the
-                    stray ENDIF VFP9 writes beside its own diagnostic. Both sealed splits opened
-                    once with no tuning after — the held-out repositories lift 1,030 of 1,030, the
-                    sealed second-corpus split 13,969 of 13,978. Before the seals opened, the
-                    table path was found pairing records by position while VFP9 drops deleted
-                    ones on recompile; every table-path figure now carries the old reading beside
-                    the corrected one, and the corrected second-corpus figure is 99.16%.
-                  </p>
-                </div>
-              </li>
-              <li data-now>
-                <p class="timeline-date">Now</p>
-                <div class="timeline-body">
-                  <h3>Where things stand</h3>
-                  <p>
-                    Wave 4 is closed. Every development, validation and held-out section of the
-                    first corpus lifts, and 29,595 of its 29,597 form and class sections
-                    recompile frame-equal. On the second corpus every development section lifts
-                    and the work queue of blocked records is empty; what remains is 171 compiled
-                    programs held by 25 refusal classes, the frame shapes behind the last 0.84%
-                    of the table path, and the Western-code-page forms a Chinese-locale oracle
-                    cannot reproduce. Wave 5 takes those on, each family measured whole against a
-                    real VFP9 oracle before it ships, and every figure on this page comes from
-                    that measurement.
-                  </p>
-                </div>
-              </li>
-              <li>
-                <p class="timeline-date">Next</p>
-                <div class="timeline-body">
-                  <h3>Reports and the rest</h3>
-                  <p>
-                    Report definitions (.frx) and the remaining artifact types close out the
-                    set, so a whole application round-trips without exceptions.
-                  </p>
-                </div>
-              </li>
-            </ol>
-
-            <p>
-              Hand FoxLift any binary and it tells the truth about it. A file that is not VFP is refused cleanly. A VFP binary always yields whatever is provable: every module found is decompiled, and any statement beyond the measured slice stays in the output as an annotated placeholder naming the exact blocker — never silently dropped. Exit 0 with a verified verdict means a 100% lift; exit 2 marks a partial.
-            </p>
-            <p>
-              Concretely: a real production .exe from the development corpus currently comes back as 13 modules and roughly 10,900 lines of source — 159 of 160 sections lifted, and the one miss is labeled in place with the unmeasured SET variant that blocks it.
-            </p>
-            <p>
-              Scope is Visual FoxPro 9 (SP2). Every claim above is measured against a real VFP9 compiler; nothing is guessed.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section story how-teaser" id="how">
-        <div class="shell story-grid">
-          <div class="story-copy" data-reveal>
-            <h2>How we built it.</h2>
-            <p class="lead">
-              A weekend spike, then a six-day measured campaign: 3.7&#8202;billion tokens through a
-              fleet of AI workers, a loop of overseers, and a real VFP9 compiler as the referee.
-            </p>
-            <p>
-              No finding survived on model consensus — every hypothesis was settled by compiling an
-              authored probe on a real VFP9 and comparing the bytecode. The full story, with the
-              campaign numbers, is on its own page.
-            </p>
-            <a class="button" href="/about/">Read how it was built</a>
-          </div>
+      <section class="section" id="limits">
+        <div class="shell limits">
+          <h2>What can't come back.</h2>
+          <p>Compilation throws some things away. FoxLift proves each loss on a real VFP9 instead of inventing a replacement.</p>
+          <ul>
+            <li><strong>Comments</strong> are never compiled.</li>
+            <li><strong>Identifier case</strong> is not kept in the symbol table.</li>
+            <li><strong>DECLARE parameter names</strong> are discarded.</li>
+            <li><strong>WAIT WINDOW clause order</strong> is canonicalised by the compiler.</li>
+          </ul>
+          <p class="hint">Protected or encrypted applications are not supported. Only decompile software you own or are authorized to inspect.</p>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="shell footer-inner">
-        <a class="brand footer-brand" href="#top" aria-label="FoxLift home">
-          <img src="/images/foxlift-mark.webp" width="42" height="42" alt="" />
+        <a class="brand" href="/" aria-label="FoxLift home">
+          <img src="/images/foxlift-mark.webp" width="24" height="24" alt="" />
           <span>FoxLift</span>
         </a>
-        <p>Created by <a href="https://github.com/timo-bejan">timo-bejan</a> · Open source under AGPL-3.0 — <a href="https://github.com/foxlift/foxlift">github.com/foxlift/foxlift</a></p>
+        <nav class="footer-links" aria-label="Project links">
+          <a href="https://github.com/foxlift/foxlift">GitHub</a>
+          <a href="https://pypi.org/project/foxlift/">PyPI</a>
+          <a href="https://github.com/foxlift/foxlift/blob/main/CHANGELOG.md">Changelog</a>
+          <a href="https://github.com/foxlift/foxlift/blob/main/LICENSE">AGPL-3.0</a>
+        </nav>
+        <p>Created by <a href="https://github.com/timo-bejan">timo-bejan</a></p>
       </div>
     </footer>
 
